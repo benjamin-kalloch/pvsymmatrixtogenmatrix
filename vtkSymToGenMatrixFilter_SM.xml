@@ -1,0 +1,54 @@
+<ServerManagerConfiguration>
+  <ProxyGroup name="filters">
+    <SourceProxy name="SymToGenMatrixFilter" class="vtkSymToGenMatrixFilter" label="Sym-Matrix to Gen-Matrix">
+
+      <Documentation
+     long_help="Convert 6-element tensors to 9-element tensors (sym-matrix to gen-matrix)."
+     short_help="Convert sym-matrix to gen-matrix.">
+        Convert 6-element tensors to 9-element tensors (sym-matrix to gen-matrix)
+      </Documentation>
+
+      <InputProperty
+         name="TensorInput"
+         port_inex="0"
+         command="SetInputConnection"
+         multiple_input="1">
+        <ProxyGroupDomain name="groups">
+          <Group name="sources"/>
+          <Group name="filters"/>
+        </ProxyGroupDomain>
+        <DataTypeDomain name="input_type">
+          <DataType value="vtkDataSet"/>
+        </DataTypeDomain>
+    <InputArrayDomain name="input_array1" attribute_type="point"
+              number_of_components="6" />
+        <Documentation>
+          This property specifies the tensor-field input.
+        </Documentation>
+      </InputProperty>
+
+     <StringVectorProperty
+         name="SelectInputTensors"
+         command="SetInputArrayToProcess"
+         number_of_elements="5"
+         element_types="0 0 0 0 2"
+         label="Tensors">
+        <ArrayListDomain name="array_list" attribute_type="Tensors"
+             input_domain_name="input_array1">
+          <RequiredProperties>
+            <Property name="TensorInput" function="Input"/>
+          </RequiredProperties>
+        </ArrayListDomain>
+        <Documentation>
+          This property indicates the name of the tensor array on which to operate.
+        </Documentation>
+      </StringVectorProperty>
+
+      <Hints>
+    <ShowInMenu category="Tensor Analysis" />
+      </Hints>
+
+    </SourceProxy>
+
+  </ProxyGroup>
+</ServerManagerConfiguration>
